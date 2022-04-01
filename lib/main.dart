@@ -1,4 +1,5 @@
 import 'package:findgadget_app/provider/change_provider.dart';
+import 'package:findgadget_app/provider/favourite_provider.dart';
 import 'package:findgadget_app/provider/password_provider.dart';
 import 'package:findgadget_app/provider/search_provider.dart';
 import 'package:findgadget_app/routes/my_routes.dart';
@@ -11,6 +12,7 @@ void main() {
       ChangeNotifierProvider(create: (_) => PasswordProvider()),
       ChangeNotifierProvider(create: (_) => ChangeProvider()),
       ChangeNotifierProvider(create: (_) => SearchProvider()),
+      ChangeNotifierProvider(create: (_) => FavouriteProvider()),
     ],
     child: MyApp(),
   ));
