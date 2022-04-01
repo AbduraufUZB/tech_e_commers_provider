@@ -66,7 +66,7 @@ class LoginPage extends StatelessWidget {
                           TextStyle(color: ColorConst.kSplashBackgroundColor)),
                   const SizedBox(height: 50),
                   InkWell(
-                    onTap: () => Navigator.pushNamedAndRemoveUntil(context, "/home", (route) => false),
+                    onTap: () => Navigator.pushNamedAndRemoveUntil(context, "/tab", (route) => false),
                     child: Container(
                       height: 70,
                       width: 314,

@@ -3,7 +3,6 @@ import 'package:findgadget_app/core/constants/font_const.dart';
 import 'package:findgadget_app/core/constants/pm_const.dart';
 import 'package:findgadget_app/core/constants/weight_const.dart';
 import 'package:findgadget_app/mock/mock_data.dart';
-
 import 'package:findgadget_app/provider/change_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -18,62 +17,68 @@ class MyItem extends StatelessWidget {
       itemBuilder: (ctx, i) {
         return Padding(
           padding: PMConst.kMediumPM,
-          child: Container(
-              height: 220,
-              width: 220,
-              child: Stack(
-                children: [
-                  Container(
-                    margin: const EdgeInsets.only(top: 60),
-                    color: Colors.white,
-                  ),
-                  Positioned(
-                      right: 40,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          CircleAvatar(
-                            radius: 73,
-                            backgroundImage: NetworkImage(
+          child: InkWell(
+            onTap: () {
+              Navigator.pushNamed(context, "/single",
+                  arguments: MockData.myData[
+                      Provider.of<ChangeProvider>(context, listen: false)
+                          .currentindex][i]);
+            },
+            child: SizedBox(
+                height: 220,
+                width: 220,
+                child: Stack(
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.only(top: 60),
+                      color: Colors.white,
+                    ),
+                    Positioned(
+                        right: 40,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            CircleAvatar(
+                              radius: 73,
+                              backgroundImage: NetworkImage(
+                                MockData
+                                    .myData[context
+                                        .watch<ChangeProvider>()
+                                        .currentindex][i]
+                                    .img
+                                    .toString(),
+                              ),
+                            ),
+                            const SizedBox(height: 17),
+                            Text(
                               MockData
                                   .myData[context
                                       .watch<ChangeProvider>()
                                       .currentindex][i]
-                                  .img
+                                  .name
                                   .toString(),
-                            ),
-                          ),
-                          const SizedBox(height: 17),
-                          Text(
-                            MockData
-                                .myData[context
-                                    .watch<ChangeProvider>()
-                                    .currentindex][i]
-                                .name
-                                .toString(),
-                                style: TextStyle(
+                              style: TextStyle(
                                   fontWeight: WeightConst.kMediumWeight,
-                                  fontSize: FontConst.kMediumFont
-                                ),
-                          ),
-                          const SizedBox(height: 31),
-                          Text(
-                            MockData
-                                .myData[context
-                                    .watch<ChangeProvider>()
-                                    .currentindex][i]
-                                .price
-                                .toString(),
-                                style: TextStyle(
+                                  fontSize: FontConst.kMediumFont),
+                            ),
+                            const SizedBox(height: 31),
+                            Text(
+                              MockData
+                                  .myData[context
+                                      .watch<ChangeProvider>()
+                                      .currentindex][i]
+                                  .price
+                                  .toString(),
+                              style: TextStyle(
                                   fontWeight: WeightConst.kMediumWeight,
                                   fontSize: FontConst.kMediumFont,
-                                  color: ColorConst.kSplashBackgroundColor
-                                ),
-                          )
-                        ],
-                      )),
-                ],
-              )),
+                                  color: ColorConst.kSplashBackgroundColor),
+                            )
+                          ],
+                        )),
+                  ],
+                )),
+          ),
         );
       },
       itemCount:
