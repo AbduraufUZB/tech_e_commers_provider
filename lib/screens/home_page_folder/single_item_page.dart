@@ -1,10 +1,13 @@
 import 'package:findgadget_app/core/constants/color_const.dart';
 import 'package:findgadget_app/core/constants/font_const.dart';
 import 'package:findgadget_app/core/constants/pm_const.dart';
+import 'package:findgadget_app/core/constants/radius_const.dart';
 import 'package:findgadget_app/core/constants/weight_const.dart';
 import 'package:findgadget_app/models/laptop_model.dart';
+import 'package:findgadget_app/provider/favourite_provider.dart';
 import 'package:findgadget_app/widgets/home_page_widgets/set_container.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class SingleItemPage extends StatelessWidget {
   LaptopModel lst;
@@ -35,8 +38,12 @@ class SingleItemPage extends StatelessWidget {
                         icon: const Icon(Icons.chevron_left,
                             size: 35, color: Colors.redAccent)),
                     IconButton(
-                        onPressed: () {},
-                        icon: const Icon(Icons.favorite_outline))
+                        onPressed: () {
+                          context.read<FavouriteProvider>().onPressedIcon(lst);
+                        },
+                        icon: Icon(
+                            lst.like ? Icons.favorite : Icons.favorite_outline,
+                            color: lst.like ? Colors.red : Colors.black))
                   ],
                 ),
               ),
@@ -63,20 +70,66 @@ class SingleItemPage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         SetContainer(c: Colors.blue, n: "Sky Blue"),
-                        SetContainer(c: const Color(0XFFC9A19C), n: "Rose Gold"),
+                        SetContainer(
+                            c: const Color(0XFFC9A19C), n: "Rose Gold"),
                         SetContainer(c: Colors.greenAccent, n: "Green")
                       ],
                     ),
                     const SizedBox(height: 30),
-                    Text("Get Apple TV+ free for a year", style: TextStyle(fontWeight: WeightConst.kMediumWeight, fontSize: FontConst.kMediumFont)),
+                    Text("Get Apple TV+ free for a year",
+                        style: TextStyle(
+                            fontWeight: WeightConst.kMediumWeight,
+                            fontSize: FontConst.kMediumFont)),
                     const SizedBox(height: 15),
-                    Text("Available when you purchase any new\niPhone, iPad, iPod Touch, Mac or Apple TV,\n£4.99/month after free trial.", style: TextStyle(fontSize: FontConst.kMediumFont, color: ColorConst.kTextSecondaryColor)),
+                    Text(
+                        "Available when you purchase any new\niPhone, iPad, iPod Touch, Mac or Apple TV,\n£4.99/month after free trial.",
+                        style: TextStyle(
+                            fontSize: FontConst.kMediumFont,
+                            color: ColorConst.kTextSecondaryColor)),
                     const SizedBox(height: 15),
-                    Text("Full description ->", style: TextStyle(color: ColorConst.kSplashBackgroundColor, fontWeight: WeightConst.kMediumWeight)),
-                    Expanded(child: Column(
+                    Text("Full description ->",
+                        style: TextStyle(
+                            color: ColorConst.kSplashBackgroundColor,
+                            fontWeight: WeightConst.kMediumWeight)),
+                    Expanded(
+                        child: Column(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        Row()
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "Total",
+                              style: TextStyle(
+                                  fontWeight: WeightConst.kMediumWeight,
+                                  fontSize: FontConst.kMediumFont),
+                            ),
+                            Text(
+                              lst.price.toString(),
+                              style: TextStyle(
+                                  color: ColorConst.kSplashBackgroundColor,
+                                  fontWeight: WeightConst.kMediumWeight,
+                                  fontSize: FontConst.kLargeFont),
+                            )
+                          ],
+                        ),
+                        const SizedBox(height: 20),
+                        Container(
+                          width: 314,
+                          height: 70,
+                          decoration: BoxDecoration(
+                              color: ColorConst.kSplashBackgroundColor,
+                              borderRadius: BorderRadius.all(
+                                  Radius.circular(RadiusConst.kMediumRadius))),
+                          child: Center(
+                            child: Text(
+                              "Add to basket",
+                              style: TextStyle(
+                                  color: ColorConst.kWhiteColor,
+                                  fontWeight: WeightConst.kMediumWeight),
+                            ),
+                          ),
+                        ),
                       ],
                     ))
                   ],
